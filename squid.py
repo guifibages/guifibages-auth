@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import urllib2
+import urllib
 import base64
 import syslog
 import time
@@ -70,7 +70,7 @@ def otpcheck(ip, username,password):
     try:
         h = httplib.HTTPSConnection('webfront01.guifibages.net')
         headers = {"Content-type": "application/x-www-form-urlencoded"}
-        params = urllib2.encode({'ip': ip, 'password': password})
+        params = urllib.encode({'ip': ip, 'password': password})
         h.request("POST", "/api/user/%s/otp" % username, params, headers)
         res = h.getresponse()
         status = False
@@ -115,7 +115,7 @@ while True:
     try:
         ip = el[0]
         user = el[1]
-        auth = urllib2.unquote(el[2]).split(' ')
+        auth = urllib.unquote(el[2]).split(' ')
         b64password = base64.b64decode(auth[1])
         el.append(auth)
         (u,password) = b64password.split(':')
